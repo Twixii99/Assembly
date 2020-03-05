@@ -1,0 +1,16 @@
+.2345678901234567890123456789
+.some basic operation
+BEG      START   1000
+         LDA     GAMMA
+         COMP    #0
+         JEQ     INF
+         LDS     BETA
+         DIVR    A,S
+         STS     ALPHA
+INF      LDA     0
+         J       *
+.
+BETA     WORD    100
+GAMMA    WORD    50
+ALPHA    RESW    1
+         END

@@ -1,0 +1,18 @@
+.2345678901234567890123456789
+. some basic operation
+BEG      START   0000
+         LDA     BETA
+         MUL     #4
+         RMO     A,S
+         LDA     GAMMA
+         MUL     #3
+         ADDR    S,A
+         STA     ALPHA
+         J       *
+.
+.
+.
+BETA     WORD    1
+GAMMA    WORD    1
+ALPHA    RESW    1
+         END

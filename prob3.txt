@@ -1,0 +1,12 @@
+.2345678901234567890123456789
+.some basic operation
+BEG      START   1000
+         LDX     #0                   INITIAL THE INDEX REG. TO ZERO
+LOOP     LDCH    #32                  ASCII CODE OF SPACE
+         STCH    STRING,X
+         TIX     #100                 COUNT UNTILL 100
+         JLT     LOOP
+         J       *
+.
+STRING   RESB    100
+         END

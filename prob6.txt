@@ -1,0 +1,24 @@
+.2345678901234567890123456789
+.some basic operation
+BEG      START   1000
+         LDX     #0
+         LDS     #0
+         LDA     #0
+         LDT     #1
+TLOOP    TD      INDEV
+         JEQ     TLOOP
+         RD      INDEV
+         SUB     #48
+         COMPR   X,T
+         JLT     TENS
+         ADDR    A,S
+         J       FIN
+TENS     MUL     #10
+         ADDR    A,S
+         ADDR    T,X
+         J       TLOOP
+FIN      RMO     S,A
+         J       *
+.
+INDEV    BYTE    X'F3'
+         END
