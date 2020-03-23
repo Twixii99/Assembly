@@ -1,0 +1,32 @@
+.2345678901234567890123456789
+.THIS PROGRAM FIND ONLY THE FIRST OCCURENCE OF CHAR
+         START   1000
+BGN      LDX     #0
+         LDT     #1
+         LDCH    FIND
+.
+.YOU MUST DO THIS AS S=53 AND WHEN S 
+.LOADED TO 'A' IT WILL BE 0x'FFFF53' WHICH ISN'T EQUAL
+.OR U CAN USE FIND=X'FFFF53' AND COMPARE 'A' WITH IT DIRECTLY
+.
+         RMO     A,S
+LOOP     LDCH    STR,X
+         COMPR   A,S
+.         COMP    FIND
+         JEQ     PRI
+         COMP    LAST
+         JEQ     FIN
+         ADDR    T,X
+         J       LOOP
+PRI      LDA     #STR
+         ADDR    X,A
+         J       *
+FIN      LDCH    LAST
+         J       *
+.
+STR      BYTE    C'PSOIONIOUS'
+EOF      BYTE    X'04'
+LAST     BYTE    X'FFFF04'
+FIND     BYTE    C'A'
+.FIND     BYTE    X'FFFF53'
+         END     BGN

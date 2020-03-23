@@ -1,0 +1,35 @@
+.2345678901234567890123456789
+BGN      START   0000
+         LDA     #0
+RLOOP    TD      INDEV
+         JEQ     RLOOP
+         RD      INDEV
+         COMP    EOF
+         JEQ     INF
+         JSUB    UPPER
+         J       RLOOP
+UPPER    COMP    #97
+         JLT     PRINT
+         COMP    #122
+         JGT     PRINT
+         SUB     #32
+         RMO     L,S
+         JSUB    PRINT
+         RMO     S,L
+         RSUB
+PRINT    TD      OUTDEV
+         JEQ     PRINT
+         WD      OUTDEV
+         RSUB
+INF      TD      OUTDEV
+         JEQ     INF
+         LDCH    EOF
+         WD      OUTDEV
+         J       *
+.
+.
+.
+INDEV    BYTE    X'F3'
+OUTDEV   BYTE    X'06'
+EOF      BYTE    X'000004'
+         END

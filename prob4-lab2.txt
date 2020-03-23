@@ -1,0 +1,73 @@
+.234567890123456789012345
+         START   1000
+BGN      LDX     #0
+         LDS     #1
+LOOP     STX     LEN
+         LDCH    STR,X
+         COMP    FINAL
+         JEQ     ASSIGN
+         ADDR    S,X
+         J       LOOP
+.
+ASSIGN   SUBR    S,X
+         STX     LEN
+         LDA     #0
+         STA     FSTL
+.
+MLOOP    LDX     FSTL
+         RMO     X,A
+         COMP    LEN
+         LDA     LEN
+         SUBR    X,A
+         STA     SNDL
+         JLT     XETA
+         J       FINISH
+.
+XETA     LDA     FSTL
+         ADD     #1
+         STA     FSTL
+         LDX     #0
+SLOOP    RMO     X,A
+         COMP    SNDL
+         LDCH    STR,X
+         RMO     A,T
+         ADDR    S,X
+         LDCH    STR,X
+         JSUB    SWAP
+         TIX     SNDL
+         JLT     SLOOP
+         J       MLOOP        
+.
+SWAP     COMPR   A,T
+         JLT     MSWAP
+         SUBR    S,X
+         RSUB
+MSWAP    RMO     A,S
+         RMO     T,A
+         STCH    STR,X
+         RMO     S,A
+         LDS     #1
+         SUBR    S,X
+         STCH    STR,X
+         RSUB
+.
+FINISH   LDX     #0
+         LDS     #1
+FX       TD      OUT
+         JEQ     FX
+         LDCH    STR,X
+         WD      OUT
+         TIX     LEN
+         JGT     FIN
+         J       FX
+FIN      LDA     #0
+         J       *
+.
+STR      BYTE    C'asddxnsaiodoazc'
+EOF      BYTE    X'04'
+FINAL    BYTE    X'FFFF04'
+OUT      BYTE    X'06'
+LEN      RESW    1
+FSTL     RESW    1
+SNDL     RESW    1
+         END     BGN

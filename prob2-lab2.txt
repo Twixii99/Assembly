@@ -1,0 +1,35 @@
+.2345678901234567890123456789
+.some basic operation
+BGN      START   1000
+         LDX     #0
+         LDA     #0
+         LDS     #0
+         LDT     #1
+TLOOP    TD      INDEV
+         JEQ     TLOOP
+         RD      INDEV
+         COMP    EOF
+         JEQ     DEC
+         STCH    VAR,X
+         ADDR    T,X
+         J       TLOOP
+DEC      SUBR    T,X
+WLOOP    TD      OUTDEV
+         JEQ     WLOOP
+         COMPR   X,S
+         JLT     INF
+         LDCH    VAR,X
+         WD      OUTDEV
+         SUBR    T,X
+         J       WLOOP
+INF      TD      OUTDEV
+         JEQ     INF
+         LDCH    EOF
+         WD      OUTDEV
+         J       *
+.
+EOF      BYTE    X'000004'
+VAR      RESB    1000
+INDEV    BYTE    X'F3'
+OUTDEV   BYTE    X'06'
+         END
